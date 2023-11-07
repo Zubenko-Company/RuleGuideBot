@@ -1,6 +1,7 @@
 type CreateRuleOptions = {
 	name: string;
-	description: string;
+	correctWay: string;
+	incorrectWay: string;
 };
 
 export const createRules = (...rules: CreateRuleOptions[]) =>
