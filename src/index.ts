@@ -1,9 +1,17 @@
-import { Markup, Telegraf } from 'telegraf';
+import { Markup, Scenes, Telegraf, session } from 'telegraf';
 import { Config } from './config/config';
 import { ANSWER } from './data/answers';
 import { MESSAGES } from './data/messages';
+import mainMenu from './scenes/mainMenu';
 
-const bot = new Telegraf(Config.BOT_TOKEN);
+const bot = new Telegraf<Scenes.SceneContext>(Config.BOT_TOKEN);
+
+const stage = new Scenes.Stage<Scenes.SceneContext>([
+	mainMenu.scene,
+]);
+
+bot.use(session());
+bot.use(stage.middleware());
 
 bot.start((ctx) => {
 	return ctx.reply(
@@ -14,13 +22,9 @@ bot.start((ctx) => {
 	);
 });
 
-bot.hears(ANSWER.agree, (ctx) =>
-	ctx.reply(MESSAGES.agreementAccept),
-);
-
-bot.command('test', (ctx) => {
-	console.log(ctx.chat.id);
-	console.log(ctx.message.message_thread_id);
+bot.hears(ANSWER.agree, (ctx) => {
+	ctx.scene.enter(mainMenu.name);
+	return ctx.reply(MESSAGES.agreementAccept);
 });
 
 bot.launch();
