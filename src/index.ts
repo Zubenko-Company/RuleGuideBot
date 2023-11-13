@@ -2,16 +2,13 @@ import { Markup, Scenes, Telegraf, session } from 'telegraf';
 import { Config } from './config/config';
 import { ANSWER } from './data/answers';
 import { MESSAGES } from './data/messages';
-import mainMenu from './scenes/mainMenu';
+import SceneMainMenu from './scenes/mainMenu';
+import { STAGE } from './scenes/stage';
 
 const bot = new Telegraf<Scenes.SceneContext>(Config.BOT_TOKEN);
 
-const stage = new Scenes.Stage<Scenes.SceneContext>([
-	mainMenu.scene,
-]);
-
 bot.use(session());
-bot.use(stage.middleware());
+bot.use(STAGE.middleware());
 
 bot.start((ctx) => {
 	return ctx.reply(
@@ -23,7 +20,7 @@ bot.start((ctx) => {
 });
 
 bot.hears(ANSWER.agree, (ctx) => {
-	ctx.scene.enter(mainMenu.name);
+	ctx.scene.enter(SceneMainMenu.id);
 	return ctx.reply(MESSAGES.agreementAccept);
 });
 

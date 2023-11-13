@@ -1,25 +1,23 @@
 import { Markup, Scenes } from 'telegraf';
+import { SceneContext } from 'telegraf/typings/scenes';
+import SceneMainMenu from '../mainMenu';
 
-const scene = 'feedbackModels';
+const SceneFeedbackModels = new Scenes.BaseScene<SceneContext>(
+	'feedbackModels',
+);
 
-const feedbackModelsScene =
-	new Scenes.BaseScene<Scenes.SceneContext>(scene);
-
-feedbackModelsScene.enter(async (ctx) => {
+SceneFeedbackModels.enter(async (ctx) => {
 	await ctx.reply(
 		'ВЫБИРАЕМe',
-		Markup.keyboard([['бутер'], ['Назад']])
-			.oneTime()
-			.resize(),
+		Markup.keyboard([['бутер'], ['Назад']]).resize(),
 	);
 });
 
-feedbackModelsScene.hears('бутер', (ctx) =>
+SceneFeedbackModels.hears('бутер', (ctx) =>
 	ctx.reply('нажал бутер'),
 );
-feedbackModelsScene.hears('Назад', (ctx) => ctx.scene.leave());
+SceneFeedbackModels.hears('Назад', (ctx) =>
+	ctx.scene.enter(SceneMainMenu.id),
+);
 
-export default {
-	scene: feedbackModelsScene,
-	name: scene,
-};
+export default SceneFeedbackModels;
