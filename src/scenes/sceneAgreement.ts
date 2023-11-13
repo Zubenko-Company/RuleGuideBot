@@ -3,22 +3,20 @@ import { MESSAGES } from '../data/messages';
 import { ANSWER } from '../data/answers';
 import SceneMainMenu from './mainMenu';
 
-const sceneAgreement = new Scenes.BaseScene<Scenes.SceneContext>(
+const SceneAgreement = new Scenes.BaseScene<Scenes.SceneContext>(
 	'agreement',
 );
 
-sceneAgreement.enter(async (ctx) => {
+SceneAgreement.enter(async (ctx) => {
 	await ctx.reply(
 		MESSAGES.agreementOffer,
-		Markup.keyboard([[ANSWER.agree]])
-			.oneTime()
-			.resize(),
+		Markup.keyboard([[ANSWER.agree]]).resize(),
 	);
 });
 
-sceneAgreement.hears(ANSWER.agree, (ctx) => {
+SceneAgreement.hears(ANSWER.agree, (ctx) => {
 	ctx.reply(MESSAGES.agreementAccept);
 	ctx.scene.enter(SceneMainMenu.id);
 });
 
-export default sceneAgreement;
+export default SceneAgreement;
