@@ -3149,6 +3149,11 @@ release-zalgo@^1.0.0:
   dependencies:
     es6-error "^4.0.1"
 
+remeda@^1.29.0:
+  version "1.29.0"
+  resolved "https://registry.yarnpkg.com/remeda/-/remeda-1.29.0.tgz#17550492ba30f128358510817fe1f0573dfb1b29"
+  integrity sha512-M3LQ14KtMdQ1879lj/kKji3zBk158s7Rwg963mEkTfQFMxnKrIEAMxJfo/+0sp/+uGgN/KMVU2MBA4LNjqf8YQ==
+
 require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
