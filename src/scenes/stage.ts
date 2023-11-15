@@ -2,8 +2,10 @@ import { Scenes } from 'telegraf';
 import SceneFeedbackModels from './feedbackModels/feedbackModels';
 import SceneMainMenu from './mainMenu';
 import SceneAgreement from './sceneAgreement';
+import SceneFeedbackRules from './feedbackTypes/feedbackRules';
 
 const SCENES = [
+	SceneFeedbackRules,
 	SceneFeedbackModels,
 	SceneMainMenu,
 	SceneAgreement,
