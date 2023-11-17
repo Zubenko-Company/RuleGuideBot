@@ -1,10 +1,9 @@
 import { Markup, Scenes } from 'telegraf';
-import SceneFeedbackModels from './feedbackModels/feedbackModels';
-import SceneFeedbackRules from './feedbackTypes/feedbackRules';
+import { SceneFeedbackModels } from '../feedback';
+import { SceneFeedbackRules } from '../rules';
 
-const SceneMainMenu = new Scenes.BaseScene<Scenes.SceneContext>(
-	'mainMenu',
-);
+export const SceneMainMenu =
+	new Scenes.BaseScene<Scenes.SceneContext>('mainMenu');
 
 SceneMainMenu.enter(async (ctx) => {
 	await ctx.reply(
@@ -22,5 +21,3 @@ SceneMainMenu.hears('Основные правила', (ctx) =>
 SceneMainMenu.hears('Виды обратной связи', (ctx) =>
 	ctx.scene.enter(SceneFeedbackModels.id),
 );
-
-export default SceneMainMenu;

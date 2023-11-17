@@ -1,6 +1,6 @@
-import { createModels } from './createModel';
+import type { FeedbackType } from './type';
 
-export const MODELS = createModels(
+export const MODELS: FeedbackType[] = [
 	{
 		name: '«Бутерброд»',
 		situations: [
@@ -54,4 +54,4 @@ export const MODELS = createModels(
 			'Изменения – спросите сотрудника, какое важное изменение, на его взгляд, ему необходимо сделать в дальнейшем в своей работе',
 		],
 	},
-);
+];

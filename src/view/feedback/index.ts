@@ -1,12 +1,11 @@
 import { Markup, Scenes } from 'telegraf';
 import { SceneContext } from 'telegraf/typings/scenes';
-import SceneMainMenu from '../mainMenu';
-import { MODELS } from '../../feedback';
+import { SceneMainMenu } from '../main';
+import { MODELS } from '@models/all';
 import * as R from 'remeda';
 
-const SceneFeedbackModels = new Scenes.BaseScene<SceneContext>(
-	'feedbackModels',
-);
+export const SceneFeedbackModels =
+	new Scenes.BaseScene<SceneContext>('feedbackModels');
 
 SceneFeedbackModels.enter(async (ctx) => {
 	await ctx.reply(
@@ -39,5 +38,3 @@ MODELS.forEach((model) => {
 SceneFeedbackModels.hears('Назад', (ctx) => {
 	ctx.scene.enter(SceneMainMenu.id);
 });
-
-export default SceneFeedbackModels;

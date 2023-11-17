@@ -1,16 +1,16 @@
 import { Scenes, Telegraf, session } from 'telegraf';
-import { Config } from './config/config';
-import { STAGE } from './scenes/stage';
-import SceneAgreement from './scenes/sceneAgreement';
+import { Config } from '@models/all';
+import { createStage } from './view/createStage';
+import { SceneAgreement } from './view/agreement';
 
 const bot = new Telegraf<Scenes.SceneContext>(Config.BOT_TOKEN);
 
 bot.use(session());
-bot.use(STAGE.middleware());
 
-bot.start((ctx) => {
-	ctx.scene.enter(SceneAgreement.id);
-});
+const stage = createStage();
+bot.use(stage.middleware());
+
+bot.start((ctx) => ctx.scene.enter(SceneAgreement.id));
 
 bot.launch();
 
