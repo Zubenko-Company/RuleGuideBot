@@ -1,6 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
 import { SceneContext } from 'telegraf/typings/scenes';
-import { SceneMainMenu } from '../main';
+import { SceneMainMenu } from '@view/main';
 import { MODELS } from '@models/all';
 import * as R from 'remeda';
 

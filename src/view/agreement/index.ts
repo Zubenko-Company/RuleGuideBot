@@ -1,5 +1,5 @@
 import { Markup, Scenes } from 'telegraf';
-import { SceneMainMenu } from '../main';
+import { SceneMainMenu } from '@view/main';
 
 export const SceneAgreement =
 	new Scenes.BaseScene<Scenes.SceneContext>('agreement');

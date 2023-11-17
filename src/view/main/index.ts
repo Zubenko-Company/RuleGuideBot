@@ -1,6 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
-import { SceneFeedbackModels } from '../feedback';
-import { SceneFeedbackRules } from '../rules';
+import { SceneFeedbackModels } from '@view/feedback';
+import { SceneFeedbackRules } from '@view/rules';
 
 export const SceneMainMenu =
 	new Scenes.BaseScene<Scenes.SceneContext>('mainMenu');

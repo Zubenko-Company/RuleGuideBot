@@ -1,7 +1,7 @@
 import { Scenes, Telegraf, session } from 'telegraf';
 import { Config } from '@models/all';
-import { createStage } from './view/createStage';
-import { SceneAgreement } from './view/agreement';
+import { createStage } from '@view/createStage';
+import { SceneAgreement } from '@view/agreement';
 
 const bot = new Telegraf<Scenes.SceneContext>(Config.BOT_TOKEN);
 

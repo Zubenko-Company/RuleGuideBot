@@ -1,21 +1,16 @@
 import { Scenes } from 'telegraf';
-import {
-	SceneAgreement,
-	SceneFeedbackModels,
-	SceneFeedbackRules,
-	SceneMainMenu,
-} from './index';
+import S from './index';
 
 const SCENES = [
-	SceneFeedbackRules,
-	SceneFeedbackModels,
-	SceneMainMenu,
-	SceneAgreement,
+	S.SceneFeedbackRules,
+	S.SceneFeedbackModels,
+	S.SceneMainMenu,
+	S.SceneAgreement,
 ] as const;
 
 export const createStage = () => {
 	const stage = new Scenes.Stage<Scenes.SceneContext>(SCENES, {
-		default: SceneMainMenu.id,
+		default: S.SceneMainMenu.id,
 	});
 
 	for (const scene of SCENES) {

@@ -30,7 +30,9 @@
 		"isolatedModules": false,
 		"baseUrl": ".",
 		"paths": {
-			"@models/*": ["src/models/*"]
+			"@models/*": ["src/models/*"],
+			"@view/*": ["src/view/*"],
+			"@viewmodel/*": ["src/viewmodel/*"]
 		}
 	},
 	"exclude": ["node_modules", "test", "types"]
