@@ -1,5 +1,5 @@
 import { Scenes } from 'telegraf';
-import S from './index';
+import * as S from './index';
 
 const SCENES = [
 	S.SceneFeedbackRules,
