@@ -1,6 +1,5 @@
 import { Scenes, Telegraf, session } from 'telegraf';
 import { Config } from './config/config';
-import { ANSWER } from './data/answers';
 import { STAGE } from './scenes/stage';
 import SceneAgreement from './scenes/sceneAgreement';
 
