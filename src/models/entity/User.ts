@@ -1,3 +1,4 @@
+import { AppDataSource } from 'src/data-source';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
@@ -25,4 +26,45 @@ export class User {
 
 	@Column()
 	isAdmin: boolean;
+
+	public async create(
+		options: Omit<InstanceType<typeof User>, 'id'>,
+	): Promise<User> {
+		const userRepository = AppDataSource.getRepository(User);
+
+		const alreadyExistingUser = await this.find(options);
+		if (alreadyExistingUser) {
+			console.error('Пользователь уже существует');
+			return alreadyExistingUser;
+		}
+
+		const user = new User();
+
+		user.lastName = options.lastName ?? '';
+		user.chatId = options.chatId;
+		user.firstName = options.firstName;
+		user.isBot = options.isBot;
+		user.isAdmin = false;
+		user.isPremium = options.isPremium ?? false;
+		user.userName = options.userName ?? 'Гость';
+
+		const createdUser = await userRepository.save(user);
+
+		return createdUser;
+	}
+
+	public async find(options: {
+		chatId: number;
+	}): Promise<User | undefined> {
+		const userRepository = AppDataSource.getRepository(User);
+		const [user] = await userRepository.findBy({
+			chatId: options.chatId,
+		});
+
+		if (user) {
+			return user;
+		}
+
+		return undefined;
+	}
 }
