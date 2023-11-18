@@ -9,7 +9,7 @@ export class User {
 	chatId: number;
 
 	@Column()
-	is_bot: boolean;
+	isBot: boolean;
 
 	@Column()
 	firstName: string;
