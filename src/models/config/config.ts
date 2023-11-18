@@ -3,6 +3,9 @@ dotenv.config();
 
 export class Config {
 	static BOT_TOKEN = process.env.BOT_TOKEN as string;
+	static ADMIN: string[] = JSON.parse(
+		process.env.ADMIN as string,
+	) as string[];
 }
 
 const validate = () => {
