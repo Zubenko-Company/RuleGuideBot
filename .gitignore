@@ -10,6 +10,7 @@ tmp/
 temp/
 .env
 .history
+usersDB.sqlite
 
 # Project files:
 *.sublime-*

@@ -1,9 +1,9 @@
+import 'reflect-metadata';
 import { Scenes, Telegraf, session } from 'telegraf';
 import { Config } from '@models/all';
 import { createStage } from '@view/createStage';
 import { SceneAgreement } from '@view/agreement';
 import { AppDataSource } from './data-source';
-import { User } from './entity/User';
 
 AppDataSource.initialize();
 
