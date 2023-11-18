@@ -61,10 +61,10 @@ export class User {
 			chatId: options.chatId,
 		});
 
-		if (user) {
-			return user;
+		if (!user) {
+			return undefined;
 		}
 
-		return undefined;
+		return user;
 	}
 }
