@@ -21,7 +21,6 @@ SceneAgreement.hears('Я согласен!', async (ctx) => {
 		chatId: ctx.from.id,
 		firstName: ctx.from.first_name,
 		isBot: ctx.from.is_bot,
-		isAdmin: false,
 		isPremium: ctx.from.is_premium ?? false,
 		userName: ctx.from.username ?? 'Гость',
 	});

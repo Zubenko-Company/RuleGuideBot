@@ -1,11 +1,18 @@
 import { Markup, Scenes } from 'telegraf';
 import { SceneFeedbackModels } from '@view/feedback';
 import { SceneFeedbackRules } from '@view/rules';
+import { Config, User } from '@models/all';
 
 export const SceneMainMenu =
 	new Scenes.BaseScene<Scenes.SceneContext>('mainMenu');
 
 SceneMainMenu.enter(async (ctx) => {
+	console.log(Config.ADMIN);
+
+	const isUserAdmin = Config.ADMIN.includes(
+		ctx.from?.username as string,
+	);
+
 	await ctx.reply(
 		'ВЫБИРАЕМ',
 		Markup.keyboard([

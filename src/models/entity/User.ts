@@ -24,9 +24,6 @@ export class User {
 	@Column()
 	isPremium: boolean;
 
-	@Column()
-	isAdmin: boolean;
-
 	public static async create(
 		options: Omit<InstanceType<typeof User>, 'id'>,
 	): Promise<User> {
@@ -40,13 +37,12 @@ export class User {
 
 		const user = new User();
 
-		user.lastName = options.lastName ?? '';
+		user.lastName = options.lastName;
 		user.chatId = options.chatId;
 		user.firstName = options.firstName;
 		user.isBot = options.isBot;
-		user.isAdmin = false;
-		user.isPremium = options.isPremium ?? false;
-		user.userName = options.userName ?? 'Гость';
+		user.isPremium = options.isPremium;
+		user.userName = options.userName;
 
 		const createdUser = await userRepository.save(user);
 
