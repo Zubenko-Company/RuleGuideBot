@@ -1,6 +1,9 @@
 {
 	"compilerOptions": {
+		"strictPropertyInitialization": false,
 		"forceConsistentCasingInFileNames": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
 		"preserveConstEnums": true,
 		"resolveJsonModule": true,
 		"target": "ESNext",
