@@ -27,7 +27,7 @@ export class User {
 	@Column()
 	isAdmin: boolean;
 
-	public async create(
+	public static async create(
 		options: Omit<InstanceType<typeof User>, 'id'>,
 	): Promise<User> {
 		const userRepository = AppDataSource.getRepository(User);
@@ -53,7 +53,7 @@ export class User {
 		return createdUser;
 	}
 
-	public async find(options: {
+	public static async find(options: {
 		chatId: number;
 	}): Promise<User | undefined> {
 		const userRepository = AppDataSource.getRepository(User);
