@@ -57,7 +57,7 @@ export class User {
 		chatId: number;
 	}): Promise<User | undefined> {
 		const userRepository = AppDataSource.getRepository(User);
-		const [user] = await userRepository.findBy({
+		const user = await userRepository.findOneBy({
 			chatId: options.chatId,
 		});
 
