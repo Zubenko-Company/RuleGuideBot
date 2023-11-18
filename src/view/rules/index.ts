@@ -1,21 +1,21 @@
 import { Markup, Scenes } from 'telegraf';
 import { SceneContext } from 'telegraf/typings/scenes';
 import { SceneMainMenu } from '@view/main';
-import { RULES } from '@models/all';
+import { RULES, RuleType } from '@models/all';
+import { RulePrettify } from '@viewmodel/all';
 
 export const SceneFeedbackRules =
 	new Scenes.BaseScene<SceneContext>('feedbackRules');
 
+const makeRuleListEntry = (rule: RuleType, i: number) =>
+	`${i + 1}. ${rule.name}`;
+
 SceneFeedbackRules.enter(async (ctx) => {
-	await ctx.reply(
+	ctx.reply(
 		'Семь основных правил обратной связи👩🏼‍💻:\n\n' +
-			RULES.map(
-				(rule, index) => index + 1 + '. ' + rule.name,
-			).join('\n'),
+			RULES.map(makeRuleListEntry).join('\n'),
 		Markup.keyboard([
-			...RULES.map((rule, index) => [
-				index + 1 + '. ' + rule.name,
-			]),
+			...RULES.map((r, i) => [makeRuleListEntry(r, i)]),
 			['Назад'],
 		]).resize(),
 	);
@@ -23,15 +23,12 @@ SceneFeedbackRules.enter(async (ctx) => {
 
 RULES.map((rule, index) => {
 	SceneFeedbackRules.hears(
-		index + 1 + '. ' + rule.name,
-		(ctx) => {
-			ctx.replyWithMarkdownV2(
-				`*${rule.name}*\n\n✅${rule.correctWay}\n\n❌${rule.incorrectWay}`,
-			);
-		},
+		makeRuleListEntry(rule, index),
+		(ctx) =>
+			ctx.replyWithMarkdownV2(RulePrettify.prettify(rule)),
 	);
 });
 
-SceneFeedbackRules.hears('Назад', (ctx) => {
-	ctx.scene.enter(SceneMainMenu.id);
-});
+SceneFeedbackRules.hears('Назад', (ctx) =>
+	ctx.scene.enter(SceneMainMenu.id),
+);
