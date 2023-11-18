@@ -3,12 +3,13 @@ import { SceneContext } from 'telegraf/typings/scenes';
 import { SceneMainMenu } from '@view/main';
 import { MODELS } from '@models/all';
 import * as R from 'remeda';
+import { FeedbackPrettify } from '@viewmodel/all';
 
 export const SceneFeedbackModels =
 	new Scenes.BaseScene<SceneContext>('feedbackModels');
 
-SceneFeedbackModels.enter(async (ctx) => {
-	await ctx.reply(
+SceneFeedbackModels.enter((ctx) =>
+	ctx.reply(
 		'Выберите модель, чтобы подробнее ознакомится с ней📋📋📋',
 		Markup.keyboard([
 			...R.chunk(
@@ -17,24 +18,15 @@ SceneFeedbackModels.enter(async (ctx) => {
 			),
 			['Назад'],
 		]).resize(),
+	),
+);
+
+MODELS.forEach((model) => {
+	SceneFeedbackModels.hears('Модель ' + model.name, (ctx) =>
+		ctx.replyWithMarkdownV2(FeedbackPrettify.prettify(model)),
 	);
 });
 
-MODELS.forEach((model) => {
-	const messageRaw = [
-		'\n ✏️ Ситуации для применения ✏️ \n',
-		model.situations.map((sit) => `  • ${sit}`),
-		'\n ✏️ Основные правила ✏️ \n',
-		model.rules.map((rule) => `  • ${rule}`),
-	];
-
-	const message = messageRaw.flat().join('\n');
-
-	SceneFeedbackModels.hears('Модель ' + model.name, (ctx) => {
-		ctx.replyWithMarkdownV2(message);
-	});
-});
-
-SceneFeedbackModels.hears('Назад', (ctx) => {
-	ctx.scene.enter(SceneMainMenu.id);
-});
+SceneFeedbackModels.hears('Назад', (ctx) =>
+	ctx.scene.enter(SceneMainMenu.id),
+);
