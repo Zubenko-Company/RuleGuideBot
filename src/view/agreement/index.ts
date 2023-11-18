@@ -1,5 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
 import { SceneMainMenu } from '@view/main';
+import { User } from '@models/all';
 
 export const SceneAgreement =
 	new Scenes.BaseScene<Scenes.SceneContext>('agreement');
@@ -12,6 +13,19 @@ SceneAgreement.enter(async (ctx) => {
 });
 
 SceneAgreement.hears('Я согласен!', async (ctx) => {
+	console.log('Новый пользователь принял соглашение');
+	console.log(ctx.from);
+
+	await User.create({
+		lastName: ctx.from.last_name ?? '',
+		chatId: ctx.from.id,
+		firstName: ctx.from.first_name,
+		isBot: ctx.from.is_bot,
+		isAdmin: false,
+		isPremium: ctx.from.is_premium ?? false,
+		userName: ctx.from.username ?? 'Гость',
+	});
+
 	await ctx.reply(
 		'Спасибо! Теперь вы будете получать уведомления о новостях.',
 	);
