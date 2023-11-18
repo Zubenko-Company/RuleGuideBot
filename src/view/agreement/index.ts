@@ -1,6 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
 import { SceneMainMenu } from '@view/main';
-import { User } from '@models/entity/User';
+import { User } from '@models/all';
 
 export const SceneAgreement =
 	new Scenes.BaseScene<Scenes.SceneContext>('agreement');
