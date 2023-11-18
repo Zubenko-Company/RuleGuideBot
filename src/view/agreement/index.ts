@@ -1,6 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
 import { SceneMainMenu } from '@view/main';
-import { User } from 'src/entity/User';
+import { User } from '@models/entity/User';
 import { AppDataSource } from 'src/data-source';
 
 export const SceneAgreement =
@@ -14,13 +14,15 @@ SceneAgreement.enter(async (ctx) => {
 });
 
 SceneAgreement.hears('Я согласен!', async (ctx) => {
+	console.log('Новый пользователь принял соглашение');
 	console.log(ctx.from);
+
 	const userRepository = AppDataSource.getRepository(User);
-	const hui = await userRepository.findBy({
+	const existedUser = await userRepository.findBy({
 		chatId: ctx.from.id,
 	});
 
-	if (hui.length === 0) {
+	if (existedUser.length === 0) {
 		const user = new User();
 
 		user.lastName = ctx.from.last_name ?? '';
