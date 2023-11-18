@@ -11,8 +11,8 @@ SceneAgreement.enter(async (ctx) => {
 	);
 });
 
-SceneAgreement.hears('Я согласен!', (ctx) => {
-	ctx.reply(
+SceneAgreement.hears('Я согласен!', async (ctx) => {
+	await ctx.reply(
 		'Спасибо! Теперь вы будете получать уведомления о новостях.',
 	);
 	ctx.scene.enter(SceneMainMenu.id);
