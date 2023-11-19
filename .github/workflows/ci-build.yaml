@@ -22,8 +22,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: yarn ci
+        run: yarn install --frozen-lockfile
       - name: Eslint
         run: yarn lint
-      - name: Typesc Check
+      - name: Types Check
         run: yarn tsc
