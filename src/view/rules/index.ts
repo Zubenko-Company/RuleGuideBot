@@ -1,5 +1,4 @@
 import { Markup, Scenes } from 'telegraf';
-import { SceneMainMenu } from '@view/main';
 import { RULES, RuleType } from '@models/all';
 import { RulePrettify } from '@viewmodel/all';
 import { InformerContext } from '@view/context';
