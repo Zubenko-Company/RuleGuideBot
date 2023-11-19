@@ -1,11 +1,11 @@
 import { Markup, Scenes } from 'telegraf';
-import { SceneContext } from 'telegraf/typings/scenes';
 import { SceneMainMenu } from '@view/main';
 import { RULES, RuleType } from '@models/all';
 import { RulePrettify } from '@viewmodel/all';
+import { InformerContext } from '@view/context';
 
 export const SceneFeedbackRules =
-	new Scenes.BaseScene<SceneContext>('feedbackRules');
+	new Scenes.BaseScene<InformerContext>('feedbackRules');
 
 const makeRuleListEntry = (rule: RuleType, i: number) =>
 	`${i + 1}. ${rule.name}`;
@@ -30,5 +30,5 @@ RULES.map((rule, index) => {
 });
 
 SceneFeedbackRules.hears('Назад', (ctx) =>
-	ctx.scene.enter(SceneMainMenu.id),
+	ctx.navigator.goto('MainMenu'),
 );

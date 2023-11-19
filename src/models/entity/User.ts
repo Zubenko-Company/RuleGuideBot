@@ -1,8 +1,13 @@
-import { AppDataSource } from 'src/data-source';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Config } from '@models/all';
+import {
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	BaseEntity,
+} from 'typeorm';
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
@@ -24,36 +29,43 @@ export class User {
 	@Column()
 	isPremium: boolean;
 
-	public static async create(
-		options: Omit<InstanceType<typeof User>, 'id'>,
-	): Promise<User> {
-		const userRepository = AppDataSource.getRepository(User);
+	@Column()
+	isAgreed: boolean;
 
-		const alreadyExistingUser = await this.find(options);
+	public static async createIfNotExists(
+		options: Pick<
+			User,
+			| 'chatId'
+			| 'firstName'
+			| 'isAgreed'
+			| 'isBot'
+			| 'isPremium'
+			| 'lastName'
+			| 'userName'
+		>,
+	): Promise<User> {
+		const alreadyExistingUser = await this.findByChatId(options);
 		if (alreadyExistingUser) {
-			console.error('Пользователь уже существует');
 			return alreadyExistingUser;
 		}
 
-		const user = new User();
+		const user = User.create({
+			lastName: options.lastName,
+			chatId: options.chatId,
+			firstName: options.firstName,
+			isBot: options.isBot,
+			isPremium: options.isPremium,
+			userName: options.userName,
+			isAgreed: options.isAgreed,
+		});
 
-		user.lastName = options.lastName;
-		user.chatId = options.chatId;
-		user.firstName = options.firstName;
-		user.isBot = options.isBot;
-		user.isPremium = options.isPremium;
-		user.userName = options.userName;
-
-		const createdUser = await userRepository.save(user);
-
-		return createdUser;
+		return await user.save();
 	}
 
-	public static async find(options: {
+	public static async findByChatId(options: {
 		chatId: number;
 	}): Promise<User | undefined> {
-		const userRepository = AppDataSource.getRepository(User);
-		const user = await userRepository.findOneBy({
+		const user = await User.findOneBy({
 			chatId: options.chatId,
 		});
 
@@ -62,5 +74,9 @@ export class User {
 		}
 
 		return user;
+	}
+
+	public get isAdmin() {
+		return Config.ADMINS.includes(this.userName);
 	}
 }

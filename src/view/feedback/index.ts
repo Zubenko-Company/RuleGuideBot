@@ -1,12 +1,12 @@
 import { Markup, Scenes } from 'telegraf';
-import { SceneContext } from 'telegraf/typings/scenes';
 import { SceneMainMenu } from '@view/main';
 import { MODELS } from '@models/all';
 import * as R from 'remeda';
 import { FeedbackPrettify } from '@viewmodel/all';
+import { InformerContext } from '@view/context';
 
 export const SceneFeedbackModels =
-	new Scenes.BaseScene<SceneContext>('feedbackModels');
+	new Scenes.BaseScene<InformerContext>('feedbackModels');
 
 SceneFeedbackModels.enter((ctx) =>
 	ctx.reply(
@@ -28,5 +28,5 @@ MODELS.forEach((model) => {
 });
 
 SceneFeedbackModels.hears('Назад', (ctx) =>
-	ctx.scene.enter(SceneMainMenu.id),
+	ctx.navigator.goto('MainMenu'),
 );

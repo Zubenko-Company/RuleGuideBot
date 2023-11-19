@@ -1,19 +1,23 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+const getErrorEnvMessage = (fieldName: string) =>
+	`Вы не установили ${fieldName} поле в .env, выполните команду \`cp .env.dist .env\` и заполните поле ${fieldName}`;
+
 export class Config {
-	static BOT_TOKEN = process.env.BOT_TOKEN as string;
-	static ADMIN: string[] = JSON.parse(
-		process.env.ADMIN as string,
-	) as string[];
-}
+	static get BOT_TOKEN(): string {
+		if (!process.env.BOT_TOKEN) {
+			throw new Error(getErrorEnvMessage('BOT_TOKEN'));
+		}
 
-const validate = () => {
-	if (!Config.BOT_TOKEN) {
-		throw new Error(
-			'Вы не установили BOT_TOKEN поле в .env, выполните команду `cp .env.dist .env` и заполните поле BOT_TOKEN',
-		);
+		return process.env.BOT_TOKEN;
 	}
-};
 
-validate();
+	static get ADMINS(): string[] {
+		if (!process.env.ADMIN) {
+			throw new Error(getErrorEnvMessage('ADMINS'));
+		}
+
+		return process.env.ADMIN.split(',');
+	}
+}

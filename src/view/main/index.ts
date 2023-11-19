@@ -1,17 +1,11 @@
 import { Markup, Scenes } from 'telegraf';
-import { SceneFeedbackModels } from '@view/feedback';
-import { SceneFeedbackRules } from '@view/rules';
-import { Config, User } from '@models/all';
+import { InformerContext } from '@view/context';
 
 export const SceneMainMenu =
-	new Scenes.BaseScene<Scenes.SceneContext>('mainMenu');
+	new Scenes.BaseScene<InformerContext>('mainMenu');
 
 SceneMainMenu.enter(async (ctx) => {
-	console.log(Config.ADMIN);
-
-	const isUserAdmin = Config.ADMIN.includes(
-		ctx.from?.username as string,
-	);
+	const isUserAdmin = (await ctx.User).isAdmin;
 
 	await ctx.reply(
 		'ВЫБИРАЕМ',
@@ -23,8 +17,8 @@ SceneMainMenu.enter(async (ctx) => {
 });
 
 SceneMainMenu.hears('Основные правила', (ctx) =>
-	ctx.scene.enter(SceneFeedbackRules.id),
+	ctx.navigator.goto('FeedbackRules'),
 );
 SceneMainMenu.hears('Виды обратной связи', (ctx) =>
-	ctx.scene.enter(SceneFeedbackModels.id),
+	ctx.navigator.goto('FeedbackModels'),
 );
