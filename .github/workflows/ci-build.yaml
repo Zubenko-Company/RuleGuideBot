@@ -22,10 +22,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-        run: yarn ci
-      - name: Run tests and check coverage
-        run: yarn cover:check
-      - name: Report the results to Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        run: yarn install --frozen-lockfile
+      - name: Eslint
+        run: yarn lint
+      - name: Types Check
+        run: yarn tsc

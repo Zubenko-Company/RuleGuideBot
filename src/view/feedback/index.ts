@@ -1,5 +1,4 @@
 import { Markup, Scenes } from 'telegraf';
-import { SceneMainMenu } from '@view/main';
 import { MODELS } from '@models/all';
 import * as R from 'remeda';
 import { FeedbackPrettify } from '@viewmodel/all';
