@@ -1,5 +1,5 @@
 import { InformerContext } from '@view/context';
-import { Scenes, Composer } from 'telegraf';
+import { Scenes } from 'telegraf';
 import * as S from './index';
 
 export const SCENES = {
