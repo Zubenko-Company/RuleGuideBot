@@ -6,9 +6,15 @@ export const SceneAdmin = new Scenes.BaseScene<InformerContext>(
 );
 
 SceneAdmin.enter(async (ctx) => {
-	await ctx.reply('Придумайте');
+	await ctx.reply(
+		'Придумайте',
+		Markup.keyboard([['Создать рассылку'], ['Назад']]).resize(),
+	);
 });
 
-SceneAdmin.on('message', (ctx) => {
-	ctx.reply('ghblevfkb');
+SceneAdmin.hears('Создать рассылку', (ctx) => {
+	ctx.navigator.goto('MessageConstructor');
 });
+SceneAdmin.hears('Назад', (ctx) =>
+	ctx.navigator.goto('MainMenu'),
+);

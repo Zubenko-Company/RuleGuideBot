@@ -8,6 +8,7 @@ export const SCENES = {
 	MainMenu: S.SceneMainMenu,
 	Agreement: S.SceneAgreement,
 	Admin: S.SceneAdmin,
+	MessageConstructor: S.SceneMessageConstructor,
 } as const;
 
 export const createStage = () => {
