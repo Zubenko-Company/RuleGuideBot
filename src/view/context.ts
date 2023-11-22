@@ -4,7 +4,14 @@ import { Context, Scenes } from 'telegraf';
 
 export class InformerContext extends Context {
 	// Обязательное поле, требуется для расширения контекста
-	public scene: Scenes.SceneContextScene<InformerContext>;
+	public scene: Scenes.SceneContextScene<
+		InformerContext,
+		Scenes.WizardSessionData
+	>;
+
+	myContextProp: string;
+
+	wizard: Scenes.WizardContextWizard<InformerContext>;
 
 	get User() {
 		const fromObj = this.from;
