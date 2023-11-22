@@ -3,7 +3,6 @@ import { Scenes } from 'telegraf';
 import * as S from './index';
 
 export const SCENES = {
-	Admin: S.SceneAdmin,
 	FeedbackRules: S.SceneFeedbackRules,
 	FeedbackModels: S.SceneFeedbackModels,
 	MainMenu: S.SceneMainMenu,
