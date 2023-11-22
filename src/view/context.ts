@@ -19,6 +19,7 @@ export class InformerContext extends Context {
 					isPremium: fromObj.is_premium ?? false,
 					userName: fromObj.username ?? 'Гость',
 					isAgreed: false,
+					currentMenu: 'Agreement',
 				}).then(resolve),
 			);
 		}
@@ -29,7 +30,12 @@ export class InformerContext extends Context {
 	}
 
 	public navigator = {
-		goto: (menu: keyof typeof SCENES) =>
-			this.scene.enter(SCENES[menu].id),
+		goto: async (menu: keyof typeof SCENES) => {
+			await this.scene.enter(SCENES[menu].id);
+			const user = await this.User;
+
+			user.currentMenu = menu;
+			await user.save();
+		},
 	};
 }

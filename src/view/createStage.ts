@@ -1,5 +1,5 @@
 import { InformerContext } from '@view/context';
-import { Scenes } from 'telegraf';
+import { Composer, Scenes } from 'telegraf';
 import * as S from './index';
 
 export const SCENES = {
@@ -17,8 +17,18 @@ export const createStage = () => {
 		},
 	);
 
-	for (const scene of Object.values(SCENES)) {
-		stage.use(scene.middleware());
+	for (const [sceneName, scene] of Object.entries(SCENES)) {
+		stage.use(
+			Composer.optional(async (ctx) => {
+				const user = await ctx.User;
+
+				if (user.currentMenu !== sceneName) {
+					return false;
+				}
+
+				return true;
+			}, scene.middleware()),
+		);
 	}
 	return stage;
 };
