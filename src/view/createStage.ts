@@ -1,4 +1,3 @@
-import { User } from '@models/all';
 import { InformerContext } from '@view/context';
 import { Composer, Scenes } from 'telegraf';
 import * as S from './index';
