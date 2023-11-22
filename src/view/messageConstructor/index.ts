@@ -1,7 +1,6 @@
 import { Markup, Scenes } from 'telegraf';
 import { InformerContext } from '@view/context';
 import { User } from '@models/all';
-import { bot } from 'src';
 
 export const SceneMessageConstructor =
 	new Scenes.BaseScene<InformerContext>('messageConstructor');
@@ -41,7 +40,7 @@ SceneMessageConstructor.action('да', async (ctx) => {
 	const users = await User.findBy({ isAgreed: true });
 
 	for (const user of users) {
-		await bot.telegram.sendMessage(
+		await ctx.telegram.sendMessage(
 			user.chatId,
 			(ctx.callbackQuery.message as any).text,
 		);

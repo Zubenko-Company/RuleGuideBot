@@ -8,7 +8,7 @@ import { InformerContext } from '@view/context';
 
 AppDataSource.initialize();
 
-export const bot = new Telegraf(Config.BOT_TOKEN, {
+const bot = new Telegraf(Config.BOT_TOKEN, {
 	contextType: InformerContext,
 });
 
