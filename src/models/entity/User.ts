@@ -1,4 +1,5 @@
 import { Config } from '@models/all';
+import { SCENES } from '@view/createStage';
 import {
 	Entity,
 	PrimaryGeneratedColumn,
@@ -32,6 +33,9 @@ export class User extends BaseEntity {
 	@Column()
 	isAgreed: boolean;
 
+	@Column('text')
+	currentMenu: keyof typeof SCENES;
+
 	public static async createIfNotExists(
 		options: Pick<
 			User,
@@ -42,6 +46,7 @@ export class User extends BaseEntity {
 			| 'isPremium'
 			| 'lastName'
 			| 'userName'
+			| 'currentMenu'
 		>,
 	): Promise<User> {
 		const alreadyExistingUser = await this.findByChatId(options);
@@ -57,6 +62,7 @@ export class User extends BaseEntity {
 			isPremium: options.isPremium,
 			userName: options.userName,
 			isAgreed: options.isAgreed,
+			currentMenu: options.currentMenu,
 		});
 
 		return await user.save();
