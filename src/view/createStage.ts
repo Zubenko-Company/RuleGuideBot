@@ -7,6 +7,8 @@ export const SCENES = {
 	FeedbackModels: S.SceneFeedbackModels,
 	MainMenu: S.SceneMainMenu,
 	Agreement: S.SceneAgreement,
+	Admin: S.SceneAdmin,
+	MessageConstructor: S.SceneMessageConstructor,
 } as const;
 
 export const createStage = () => {
