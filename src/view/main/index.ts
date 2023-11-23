@@ -5,7 +5,7 @@ export const SceneMainMenu =
 	new Scenes.BaseScene<InformerContext>('mainMenu');
 
 SceneMainMenu.enter(async (ctx) => {
-	const isUserAdmin = (await ctx.User).isAdmin;
+	const isUserAdmin = await ctx.withUser((u) => u.isAdmin);
 
 	await ctx.reply(
 		'ВЫБИРАЕМ',

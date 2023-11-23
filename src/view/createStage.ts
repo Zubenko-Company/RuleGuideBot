@@ -22,9 +22,11 @@ export const createStage = () => {
 	for (const [sceneName, scene] of Object.entries(SCENES)) {
 		stage.use(
 			Composer.optional(async (ctx) => {
-				const user = await ctx.User;
+				const userCurrentMenu = await ctx.withUser(
+					(u) => u.currentMenu,
+				);
 
-				if (user.currentMenu !== sceneName) {
+				if (userCurrentMenu !== sceneName) {
 					return false;
 				}
 

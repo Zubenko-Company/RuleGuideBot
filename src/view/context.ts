@@ -6,7 +6,7 @@ export class InformerContext extends Context {
 	// Обязательное поле, требуется для расширения контекста
 	public scene: Scenes.SceneContextScene<InformerContext>;
 
-	get User() {
+	private get User() {
 		const fromObj = this.from;
 
 		if (fromObj) {
@@ -29,13 +29,20 @@ export class InformerContext extends Context {
 		);
 	}
 
+	async withUser<T>(
+		callback: (user: User) => Promise<T> | T,
+	): Promise<T> {
+		const user = await this.User;
+		const result = await callback(user);
+		await user.save();
+
+		return result;
+	}
+
 	public navigator = {
 		goto: async (menu: keyof typeof SCENES) => {
 			await this.scene.enter(SCENES[menu].id);
-			const user = await this.User;
-
-			user.currentMenu = menu;
-			await user.save();
+			await this.withUser((u) => (u.currentMenu = menu));
 		},
 	};
 }
