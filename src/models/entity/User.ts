@@ -12,7 +12,7 @@ export class User extends BaseEntity {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column()
+	@Column({ unique: true })
 	chatId: number;
 
 	@Column()
@@ -35,6 +35,9 @@ export class User extends BaseEntity {
 
 	@Column('text')
 	currentMenu: keyof typeof SCENES;
+
+	@Column()
+	public created_at: Date;
 
 	public static async createIfNotExists(
 		options: Pick<
@@ -63,6 +66,7 @@ export class User extends BaseEntity {
 			userName: options.userName,
 			isAgreed: options.isAgreed,
 			currentMenu: options.currentMenu,
+			created_at: new Date(),
 		});
 
 		return await user.save();
