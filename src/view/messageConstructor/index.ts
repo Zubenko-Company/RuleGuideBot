@@ -40,10 +40,15 @@ SceneMessageConstructor.action('да', async (ctx) => {
 	const users = await User.findBy({ isAgreed: true });
 
 	for (const user of users) {
-		await ctx.telegram.sendMessage(
-			user.chatId,
-			(ctx.callbackQuery.message as any).text,
-		);
+		try {
+			await ctx.telegram.sendMessage(
+				user.chatId,
+				(ctx.callbackQuery.message as any).text,
+			);
+		} catch {
+			console.log('user ' + user.userName + ' blocked bot');
+			await User.delete({ id: user.id });
+		}
 	}
 
 	await ctx.navigator.goto('Admin');
