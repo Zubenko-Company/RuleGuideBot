@@ -27,15 +27,23 @@ SceneAdmin.hears('Показать статистику', async (ctx) => {
 	const usersLastMonth = await User.count({
 		where: {
 			created_at: MoreThan(lastMonthDate),
+			isBlocked: false,
 		},
 	});
 	const usersCountAlltime = await User.count();
+	const bannedUsers = await User.count({
+		where: {
+			isBlocked: true,
+		},
+	});
 
 	await ctx.reply(
 		'📈 Общее кол-во пользователей: ' +
 			usersCountAlltime +
 			'\n📈 Новых пользователей за последний месяц: ' +
-			usersLastMonth,
+			usersLastMonth +
+			'\n💀 Пользователей отписалось: ' +
+			bannedUsers,
 	);
 });
 SceneAdmin.hears('Назад', (ctx) =>
