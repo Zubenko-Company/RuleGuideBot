@@ -33,6 +33,9 @@ export class User extends BaseEntity {
 	@Column()
 	isAgreed: boolean;
 
+	@Column()
+	isBlocked: boolean;
+
 	@Column('text')
 	currentMenu: keyof typeof SCENES;
 
@@ -54,6 +57,8 @@ export class User extends BaseEntity {
 	): Promise<User> {
 		const alreadyExistingUser = await this.findByChatId(options);
 		if (alreadyExistingUser) {
+			alreadyExistingUser.isBlocked = false;
+			await alreadyExistingUser.save();
 			return alreadyExistingUser;
 		}
 
@@ -65,6 +70,7 @@ export class User extends BaseEntity {
 			isPremium: options.isPremium,
 			userName: options.userName,
 			isAgreed: options.isAgreed,
+			isBlocked: false,
 			currentMenu: options.currentMenu,
 			created_at: new Date(),
 		});

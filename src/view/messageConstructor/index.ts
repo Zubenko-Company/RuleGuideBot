@@ -47,7 +47,8 @@ SceneMessageConstructor.action('да', async (ctx) => {
 			);
 		} catch {
 			console.log('user ' + user.userName + ' blocked bot');
-			await User.delete({ id: user.id });
+			user.isBlocked = true;
+			await user.save();
 		}
 	}
 
