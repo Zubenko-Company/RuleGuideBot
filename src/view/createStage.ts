@@ -1,4 +1,5 @@
 import { InformerContext } from '@view/context';
+import { sceneErrorHandler } from '@view/errorHandler';
 import { Composer, Scenes } from 'telegraf';
 import * as S from './index';
 
@@ -21,17 +22,20 @@ export const createStage = () => {
 
 	for (const [sceneName, scene] of Object.entries(SCENES)) {
 		stage.use(
-			Composer.optional(async (ctx) => {
-				const userCurrentMenu = await ctx.withUser(
-					(u) => u.currentMenu,
-				);
+			Composer.compose([
+				Composer.catch(sceneErrorHandler),
+				Composer.optional(async (ctx) => {
+					const userCurrentMenu = await ctx.withUser(
+						(u) => u.currentMenu,
+					);
 
-				if (userCurrentMenu !== sceneName) {
-					return false;
-				}
+					if (userCurrentMenu !== sceneName) {
+						return false;
+					}
 
-				return true;
-			}, scene.middleware()),
+					return true;
+				}, scene.middleware()),
+			]),
 		);
 	}
 	return stage;
