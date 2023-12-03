@@ -11,6 +11,7 @@ export const SCENES = {
 	Admin: S.SceneAdmin,
 	MessageConstructor: S.SceneMessageConstructor,
 	About: S.SceneAbout,
+	Search: S.SceneSearch,
 } as const;
 
 export const createStage = () => {
