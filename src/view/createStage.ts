@@ -10,6 +10,7 @@ export const SCENES = {
 	Agreement: S.SceneAgreement,
 	Admin: S.SceneAdmin,
 	MessageConstructor: S.SceneMessageConstructor,
+	About: S.SceneAbout,
 } as const;
 
 export const createStage = () => {

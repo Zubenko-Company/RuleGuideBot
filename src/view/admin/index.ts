@@ -7,6 +7,8 @@ export const SceneAdmin = new Scenes.BaseScene<InformerContext>(
 	'admin',
 );
 
+//TODO check
+
 SceneAdmin.enter(async (ctx) => {
 	await ctx.reply(
 		'Придумайте',
@@ -46,6 +48,7 @@ SceneAdmin.hears('Показать статистику', async (ctx) => {
 			bannedUsers,
 	);
 });
+
 SceneAdmin.hears('Назад', (ctx) =>
 	ctx.navigator.goto('MainMenu'),
 );

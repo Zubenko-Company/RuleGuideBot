@@ -12,6 +12,7 @@ SceneMainMenu.enter(async (ctx) => {
 		Markup.keyboard([
 			['Основные правила'],
 			['Виды обратной связи'],
+			['Узнай, чем тебе будет полезен наш бот✨'],
 			isUserAdmin ? ['🔐🔐🔐АДМИНКА🔐🔐🔐'] : [],
 		]).resize(),
 	);
@@ -19,6 +20,10 @@ SceneMainMenu.enter(async (ctx) => {
 
 SceneMainMenu.hears('🔐🔐🔐АДМИНКА🔐🔐🔐', (ctx) =>
 	ctx.navigator.goto('Admin'),
+);
+SceneMainMenu.hears(
+	'Узнай, чем тебе будет полезен наш бот✨',
+	(ctx) => ctx.navigator.goto('About'),
 );
 SceneMainMenu.hears('Основные правила', (ctx) =>
 	ctx.navigator.goto('FeedbackRules'),
