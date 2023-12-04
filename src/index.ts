@@ -6,21 +6,23 @@ import { SceneAgreement } from '@view/agreement';
 import { AppDataSource } from './data-source';
 import { InformerContext } from '@view/context';
 
-AppDataSource.initialize();
+(async () => {
+	await AppDataSource.initialize();
 
-const bot = new Telegraf(Config.BOT_TOKEN, {
-	contextType: InformerContext,
-});
-bot.use(session());
+	const bot = new Telegraf(Config.BOT_TOKEN, {
+		contextType: InformerContext,
+	});
+	bot.use(session());
 
-const stage = createStage();
-bot.use(stage.middleware());
+	const stage = createStage();
+	bot.use(stage.middleware());
 
-bot.start((ctx) => ctx.scene.enter(SceneAgreement.id));
-bot.launch();
+	bot.start((ctx) => ctx.scene.enter(SceneAgreement.id));
+	bot.launch();
 
-bot.catch((err) => console.log(err));
+	bot.catch((err) => console.log(err));
 
-// Enable graceful stop
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+	// Enable graceful stop
+	process.once('SIGINT', () => bot.stop('SIGINT'));
+	process.once('SIGTERM', () => bot.stop('SIGTERM'));
+})();

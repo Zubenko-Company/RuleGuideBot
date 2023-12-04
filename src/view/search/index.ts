@@ -5,7 +5,7 @@ import { SearchPrettify } from '@viewmodel/all';
 import { InformerContext } from '@view/context';
 
 export const SceneSearch = new Scenes.BaseScene<InformerContext>(
-	'feedbackModels',
+	'Search',
 );
 
 SceneSearch.enter((ctx) =>

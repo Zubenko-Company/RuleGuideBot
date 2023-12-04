@@ -5,8 +5,10 @@ export class FeedbackPrettify {
 		const messageRaw = [
 			'\n ✏️ Ситуации для применения \n',
 			feedback.situations.map((sit) => `  • ${sit}`),
-			'\n ✏️ Основные правила \n',
-			feedback.rules.map((rule) => `  • ${rule}`),
+			'\n ✏️ Алгоритм донесения обратной связи \n',
+			feedback.rules.map(
+				(rule, index) => `  ${index + 1}\\. ${rule}`,
+			),
 		];
 
 		const message = messageRaw.flat().join('\n');

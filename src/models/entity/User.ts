@@ -42,6 +42,8 @@ export class User extends BaseEntity {
 	@Column()
 	public created_at: Date;
 
+	private static idsQueue = new Map<number, Promise<User>>();
+
 	public static async createIfNotExists(
 		options: Pick<
 			User,
@@ -56,6 +58,7 @@ export class User extends BaseEntity {
 		>,
 	): Promise<User> {
 		const alreadyExistingUser = await this.findByChatId(options);
+
 		if (alreadyExistingUser) {
 			alreadyExistingUser.isBlocked = false;
 			await alreadyExistingUser.save();
@@ -75,7 +78,14 @@ export class User extends BaseEntity {
 			created_at: new Date(),
 		});
 
-		return await user.save();
+		const existedUser = User.idsQueue.get(options.chatId);
+		if (existedUser) {
+			return await existedUser;
+		}
+		const pendingUserSave = user.save();
+		User.idsQueue.set(options.chatId, pendingUserSave);
+
+		return await pendingUserSave;
 	}
 
 	public static async findByChatId(options: {

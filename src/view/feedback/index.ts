@@ -9,7 +9,7 @@ export const SceneFeedbackModels =
 
 SceneFeedbackModels.enter((ctx) =>
 	ctx.reply(
-		'Выберите модель, чтобы подробнее ознакомится с ней📋',
+		'⬇️⬇️⬇️',
 		Markup.keyboard([
 			...R.chunk(
 				MODELS.map((model) => 'Модель ' + model.name),
