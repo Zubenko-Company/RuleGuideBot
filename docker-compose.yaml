@@ -2,8 +2,4 @@ version: '3'
 services:
   ruleguidebot:
     build:
-      context: .
       dockerfile: Dockerfile
-    volumes:
-      - .:/RuleGuideBot
-    command: sh -c "yarn install --frozen-lockfile && yarn serve"
