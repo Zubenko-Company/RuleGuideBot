@@ -3,6 +3,3 @@ services:
   ruleguidebot:
     build:
       dockerfile: Dockerfile
-    env_file:
-      - .env
-      - stack.env
