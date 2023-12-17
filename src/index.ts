@@ -8,7 +8,7 @@ import { InformerContext } from '@view/context';
 
 (async () => {
 	await AppDataSource.initialize();
-	console.log('Новое подключение');
+	console.log('Новое подключение)');
 
 	const bot = new Telegraf(Config.BOT_TOKEN, {
 		contextType: InformerContext,
