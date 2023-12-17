@@ -3,3 +3,4 @@ services:
   ruleguidebot:
     build:
       dockerfile: Dockerfile
+    pull_policy: build
