@@ -2,15 +2,16 @@ import { Config } from '@models/all';
 import { SCENES } from '@view/createStage';
 import {
 	Entity,
-	PrimaryGeneratedColumn,
 	Column,
 	BaseEntity,
+	ObjectIdColumn,
+	ObjectId,
 } from 'typeorm';
 
 @Entity()
 export class User extends BaseEntity {
-	@PrimaryGeneratedColumn()
-	id: number;
+    @ObjectIdColumn()
+    id: ObjectId
 
 	@Column({ unique: true })
 	chatId: number;

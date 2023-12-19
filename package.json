@@ -56,10 +56,10 @@
 	},
 	"dependencies": {
 		"dotenv": "^16.3.1",
+		"mongodb": "^6.3.0",
 		"reflect-metadata": "^0.1.13",
 		"remeda": "^1.29.0",
 		"sitka": "^1.1.1",
-		"sqlite3": "^5.1.6",
 		"telegraf": "4.15.0",
 		"typeorm": "0.3.17"
 	}
