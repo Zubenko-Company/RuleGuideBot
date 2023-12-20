@@ -4,4 +4,4 @@ WORKDIR /RuleGuideBot
 
 COPY . /RuleGuideBot
 
-CMD cp stack.env .env && yarn install --frozen-lockfile && yarn serve
+CMD sh ./deploy.sh
