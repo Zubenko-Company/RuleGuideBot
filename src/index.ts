@@ -8,7 +8,6 @@ import { InformerContext } from '@view/context';
 
 (async () => {
 	await AppDataSource.initialize();
-	console.log('Новое подключение)');
 
 	const bot = new Telegraf(Config.BOT_TOKEN, {
 		contextType: InformerContext,
@@ -18,7 +17,11 @@ import { InformerContext } from '@view/context';
 	const stage = createStage();
 	bot.use(stage.middleware());
 
-	bot.start((ctx) => ctx.scene.enter(SceneAgreement.id));
+	bot.start((ctx) => {
+		console.log('Новое подключение');
+		return ctx.scene.enter(SceneAgreement.id)
+	});
+
 	bot.launch();
 
 	bot.catch((err) => console.log(err));
