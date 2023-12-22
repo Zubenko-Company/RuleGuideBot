@@ -12,8 +12,6 @@ SceneAgreement.enter(async (ctx) => {
 });
 
 SceneAgreement.hears('Я согласен!', async (ctx) => {
-	console.log('Новый пользователь принял соглашение');
-
 	await ctx.withUser((u) => (u.isAgreed = true));
 
 	await ctx.reply(

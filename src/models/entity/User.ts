@@ -10,8 +10,8 @@ import {
 
 @Entity()
 export class User extends BaseEntity {
-    @ObjectIdColumn()
-    id: ObjectId
+	@ObjectIdColumn()
+	id: ObjectId;
 
 	@Column({ unique: true })
 	chatId: number;
@@ -85,6 +85,9 @@ export class User extends BaseEntity {
 		}
 		const pendingUserSave = user.save();
 		User.idsQueue.set(options.chatId, pendingUserSave);
+		console.log(
+			'user created @' + (await pendingUserSave).userName,
+		);
 
 		return await pendingUserSave;
 	}
