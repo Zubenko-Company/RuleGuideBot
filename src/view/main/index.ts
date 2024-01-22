@@ -8,7 +8,7 @@ SceneMainMenu.enter(async (ctx) => {
 	const isUserAdmin = await ctx.withUser((u) => u.isAdmin);
 
 	await ctx.reply(
-		'Выберите опцию ⬇️',
+		'Выберите опцию',
 		Markup.keyboard([
 			['Узнай, чем тебе будет полезен наш бот✨'],
 			['Выбери тип ситуации для Обратной связи'],

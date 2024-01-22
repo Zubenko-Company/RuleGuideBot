@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import { Telegraf, session } from 'telegraf';
+import { session, Telegraf } from 'telegraf';
 import { Config } from '@models/all';
 import { createStage } from '@view/createStage';
 import { SceneAgreement } from '@view/agreement';
@@ -19,7 +19,7 @@ import { InformerContext } from '@view/context';
 
 	bot.start((ctx) => {
 		console.log('Новое подключение');
-		return ctx.scene.enter(SceneAgreement.id)
+		return ctx.scene.enter(SceneAgreement.id);
 	});
 
 	bot.launch();
