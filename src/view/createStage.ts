@@ -12,6 +12,7 @@ export const SCENES = {
 	MessageConstructor: S.SceneMessageConstructor,
 	About: S.SceneAbout,
 	Search: S.SceneSearch,
+	Algoritm: S.SceneAlgoritm,
 } as const;
 
 export const createStage = () => {

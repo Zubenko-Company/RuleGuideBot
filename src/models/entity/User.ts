@@ -40,6 +40,9 @@ export class User extends BaseEntity {
 	@Column('text')
 	currentMenu: keyof typeof SCENES;
 
+	@Column('text', { nullable: true, default: null })
+	currentModel: string | null;
+
 	@Column()
 	public created_at: Date;
 

@@ -6,3 +6,4 @@ export * from './admin';
 export * from './messageConstructor';
 export * from './about';
 export * from './search';
+export * from './algoritm';
