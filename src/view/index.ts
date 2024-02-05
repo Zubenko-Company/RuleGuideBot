@@ -7,3 +7,5 @@ export * from './messageConstructor';
 export * from './about';
 export * from './search';
 export * from './algoritm';
+export * from './example';
+export * from './adoutFeedback';

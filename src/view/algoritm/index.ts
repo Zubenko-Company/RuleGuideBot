@@ -1,12 +1,15 @@
 import { Markup, Scenes } from 'telegraf';
 import { InformerContext } from '@view/context';
 import { MODELS } from '@models/feedback';
+import * as fs from 'fs';
 
 export const SceneAlgoritm =
 	new Scenes.BaseScene<InformerContext>('algoritm');
 
 SceneAlgoritm.enter(async (ctx) => {
-	const choosenFeedback = (await ctx.User).currentModel;
+	const choosenFeedback = await ctx.withUser(
+		(u) => u.currentModel,
+	);
 
 	if (!choosenFeedback) {
 		console.log('ctx.choosenFeedback is empty');
@@ -16,6 +19,11 @@ SceneAlgoritm.enter(async (ctx) => {
 	if (!model) {
 		return ctx.navigator.goto('Search');
 	}
+
+	await ctx.replyWithPhoto({
+		source: fs.createReadStream(model.algoritm.imageSource),
+	});
+
 	return ctx.replyWithMarkdownV2(
 		model.algoritm.info,
 		Markup.keyboard([
@@ -30,5 +38,5 @@ SceneAlgoritm.hears('Все ясно. Назад.', (ctx) =>
 );
 
 SceneAlgoritm.hears('Нужен пример', (ctx) =>
-	ctx.navigator.goto('MainMenu'),
+	ctx.navigator.goto('Example'),
 );

@@ -1,6 +1,5 @@
 import { Markup, Scenes } from 'telegraf';
 import { MODELS } from '@models/all';
-import { SearchPrettify } from '@viewmodel/all';
 import { InformerContext } from '@view/context';
 
 export const SceneSearch = new Scenes.BaseScene<InformerContext>(
@@ -33,33 +32,9 @@ MODELS.forEach((model) => {
 	});
 });
 
-// - Узнать алгоритм действий
-// - Похоже, у меня другая ситуация. Назад.
-
 SceneSearch.hears('Узнать алгоритм действий', (ctx) => {
 	return ctx.navigator.goto('Algoritm');
 });
-
-// Все ясно. Назад.
-// Нужен пример
-
-// SceneSearch.hears('Нужен пример', (ctx) => {
-// 	const hui = MODELS.find((el) => el.tag === activeModel);
-// 	if (!hui) {
-// 		throw new Error('Пустой activeModel');
-// 	}
-// 	return ctx.replyWithMarkdownV2(
-// 		hui.example[0],
-// 		Markup.keyboard([
-// 			['Все ясно. Назад.'],
-// 			['Нужен пример'],
-// 		]).resize(),
-// 	);
-// });
-
-// SceneSearch.hears('Все ясно. Назад.', (ctx) =>
-// 	ctx.navigator.goto('MainMenu'),
-// );
 
 SceneSearch.hears(
 	'Похоже, у меня другая ситуация( Назад',

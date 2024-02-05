@@ -13,6 +13,8 @@ export const SCENES = {
 	About: S.SceneAbout,
 	Search: S.SceneSearch,
 	Algoritm: S.SceneAlgoritm,
+	Example: S.SceneExample,
+	aboutFeedback: S.SceneAboutFeedback,
 } as const;
 
 export const createStage = () => {

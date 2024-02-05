@@ -8,7 +8,7 @@ export class InformerContext extends Context {
 
 	public choosenFeedback = '';
 
-	public get User() {
+	private get User() {
 		const fromObj = this.from;
 
 		if (fromObj) {

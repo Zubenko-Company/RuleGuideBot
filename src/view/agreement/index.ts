@@ -14,7 +14,7 @@ SceneAgreement.enter(async (ctx) => {
 
 	await ctx.replyWithVideo({
 		source: fs.createReadStream(
-			__dirname + '/../../video/intro.mp4',
+			__dirname + '/../../media/video/intro.mp4',
 		),
 	});
 

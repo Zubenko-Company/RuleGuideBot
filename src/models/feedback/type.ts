@@ -1,7 +1,5 @@
-import * as fs from 'fs';
-
-type Algoritm = {
-	imageSource: fs.ReadStream;
+type AlgoritmType = {
+	imageSource: string;
 	info: string;
 };
 
@@ -10,6 +8,6 @@ export type FeedbackType = {
 	situations: string;
 	rules: string[];
 	tag: string;
-	algoritm: Algoritm;
+	algoritm: AlgoritmType;
 	example: string[];
 };
