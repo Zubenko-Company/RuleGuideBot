@@ -6,6 +6,8 @@ export class InformerContext extends Context {
 	// Обязательное поле, требуется для расширения контекста
 	public scene: Scenes.SceneContextScene<InformerContext>;
 
+	public choosenFeedback = '';
+
 	private get User() {
 		const fromObj = this.from;
 

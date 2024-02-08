@@ -1,4 +1,4 @@
-import { Input, Markup, Scenes } from 'telegraf';
+import { Markup, Scenes } from 'telegraf';
 import { InformerContext } from '@view/context';
 import * as fs from 'fs';
 
@@ -7,10 +7,16 @@ export const SceneAgreement =
 
 SceneAgreement.enter(async (ctx) => {
 	await ctx.reply(
-		'Добро пожаловать!\n' +
-			'Этот чат-бот — ваш помощник в повседневной работе с сотрудниками.' +
-			'Он подскажет, какой вариант обратной связи и в каких ситуациях эффективнее применять. Удачи!\n',
+		'Добро пожаловать!' +
+			'Этот чат-бот — ваш помощник в повседневной работе с сотрудниками. ' +
+			'Перед его использованием посмотрите это короткое видео:',
 	);
+
+	await ctx.replyWithVideo({
+		source: fs.createReadStream(
+			__dirname + '/../../media/video/intro.mp4',
+		),
+	});
 
 	await ctx.reply(
 		'Разрешить отправку уведомлений о новостях?',
@@ -20,11 +26,7 @@ SceneAgreement.enter(async (ctx) => {
 
 SceneAgreement.hears('Я согласен!', async (ctx) => {
 	await ctx.withUser((u) => (u.isAgreed = true));
-	await ctx.replyWithVideoNote({
-		source: fs.createReadStream(
-			__dirname + '/../../video/intro.mp4',
-		),
-	});
+
 	await ctx.reply(
 		'Спасибо! Теперь вы будете получать уведомления о новостях.',
 	);

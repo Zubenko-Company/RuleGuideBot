@@ -1,5 +1,6 @@
 export const sceneErrorHandler = (err: unknown): void => {
 	if (err instanceof Error) {
-		console.log('AШИBKА', err.message);
+		console.log('AШИBKА: ', err.message);
+		console.log('СТАК: ', err.stack);
 	}
 };

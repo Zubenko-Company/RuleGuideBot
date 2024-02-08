@@ -11,10 +11,10 @@ SceneFeedbackModels.enter((ctx) =>
 	ctx.reply(
 		'⬇️⬇️⬇️',
 		Markup.keyboard([
-			...R.chunk(
-				MODELS.map((model) => 'Модель ' + model.name),
-				2,
-			),
+			// ...R.chunk(
+			// 	MODELS.map((model) => 'Модель ' + model.name),
+			// 	2,
+			// ),
 			['Назад'],
 		]).resize(),
 	),

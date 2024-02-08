@@ -11,7 +11,7 @@ const makeRuleListEntry = (rule: RuleType, i: number) =>
 
 SceneFeedbackRules.enter(async (ctx) => {
 	ctx.reply(
-		'Семь основных правил обратной связи👩🏼‍💻:\n\n' +
+		'Чтобы ваша ОС была эффективна, важно соблюдать Правила:\n\n' +
 			RULES.map(makeRuleListEntry).join('\n'),
 		Markup.keyboard([
 			...RULES.map((r, i) => [makeRuleListEntry(r, i)]),
