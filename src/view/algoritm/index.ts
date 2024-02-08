@@ -7,6 +7,8 @@ export const SceneAlgoritm =
 	new Scenes.BaseScene<InformerContext>('algoritm');
 
 SceneAlgoritm.enter(async (ctx) => {
+	let buttons = [['Все ясно. Назад.']];
+
 	const choosenFeedback = await ctx.withUser(
 		(u) => u.currentModel,
 	);
@@ -24,12 +26,12 @@ SceneAlgoritm.enter(async (ctx) => {
 		source: fs.createReadStream(model.algoritm.imageSource),
 	});
 
+	if (model.example.length > 0)
+		buttons = [['Все ясно. Назад.'], ['Нужен пример']];
+
 	return ctx.replyWithMarkdownV2(
 		model.algoritm.info,
-		Markup.keyboard([
-			['Все ясно. Назад.'],
-			['Нужен пример'],
-		]).resize(),
+		Markup.keyboard(buttons).resize(),
 	);
 });
 
