@@ -5,9 +5,10 @@ import { FEEDBACKINFO } from '@models/feedbackInfo';
 export const SceneAboutFeedback =
 	new Scenes.BaseScene<InformerContext>('aboutFeedback');
 
-let layer = 1;
+let layer = 0; //TODO
 
 SceneAboutFeedback.enter(async (ctx) => {
+	layer = 1;
 	await ctx.reply(
 		FEEDBACKINFO[0].content,
 		Markup.keyboard([['Дальше'], ['Назад']]).resize(),
