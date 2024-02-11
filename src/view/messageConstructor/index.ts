@@ -37,7 +37,9 @@ SceneMessageConstructor.action('да', async (ctx) => {
 		inline_keyboard: [],
 	});
 
-	const users = await User.findBy({ isAgreed: true });
+	const users = await User.find({
+		where: { isAgreed: true, isBlocked: false },
+	});
 
 	for (const user of users) {
 		try {

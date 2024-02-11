@@ -1,7 +1,7 @@
 import { Markup, Scenes } from 'telegraf';
 import { InformerContext } from '@view/context';
 import { User } from '@models/all';
-import { MoreThan } from 'typeorm';
+import { LessThan, MoreThan, MoreThanOrEqual } from 'typeorm';
 
 export const SceneAdmin = new Scenes.BaseScene<InformerContext>(
 	'admin',
@@ -26,22 +26,30 @@ SceneAdmin.hears('Показать статистику', async (ctx) => {
 	const lastMonthDate = new Date();
 	lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
 
-	const usersLastMonth = await User.count({
-		where: {
-			created_at: MoreThan(lastMonthDate),
-			isBlocked: false,
-		},
-	});
-	const usersCountAlltime = await User.count();
-	const bannedUsers = await User.count({
-		where: {
-			isBlocked: true,
-		},
-	});
+	const usersLastMonth = (
+		await User.findAndCount({
+			where: {
+				created_at: MoreThanOrEqual(lastMonthDate),
+				isBlocked: false,
+			},
+		})
+	)[1];
+	const usersCount = (
+		await User.findAndCount({
+			where: { isAgreed: true },
+		})
+	)[1];
+	const bannedUsers = (
+		await User.findAndCount({
+			where: {
+				isBlocked: true,
+			},
+		})
+	)[1];
 
 	await ctx.reply(
 		'📈 Общее кол-во пользователей: ' +
-			usersCountAlltime +
+			usersCount +
 			'\n📈 Новых пользователей за последний месяц: ' +
 			usersLastMonth +
 			'\n💀 Пользователей отписалось: ' +
