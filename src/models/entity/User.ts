@@ -46,6 +46,9 @@ export class User extends BaseEntity {
 	@Column()
 	public created_at: Date;
 
+	@Column({ default: 0 })
+	feedBackStep: number;
+
 	private static idsQueue = new Map<number, Promise<User>>();
 
 	public static async createIfNotExists(

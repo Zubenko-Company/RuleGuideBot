@@ -5,10 +5,10 @@ import { FEEDBACKINFO } from '@models/feedbackInfo';
 export const SceneAboutFeedback =
 	new Scenes.BaseScene<InformerContext>('aboutFeedback');
 
-let layer = 0; //TODO
-
 SceneAboutFeedback.enter(async (ctx) => {
-	layer = 1;
+	await ctx.withUser((u) => {
+		u.feedBackStep = 1;
+	});
 	await ctx.reply(
 		FEEDBACKINFO[0].content,
 		Markup.keyboard([['Дальше'], ['Назад']]).resize(),
@@ -17,7 +17,7 @@ SceneAboutFeedback.enter(async (ctx) => {
 
 SceneAboutFeedback.hears('Дальше', async (ctx) => {
 	let buttons = [['Дальше'], ['Назад']];
-
+	const layer = await ctx.withUser((u) => u.feedBackStep);
 	if (layer === FEEDBACKINFO.length - 1) {
 		buttons = [['Назад']];
 	}
@@ -27,7 +27,7 @@ SceneAboutFeedback.hears('Дальше', async (ctx) => {
 		Markup.keyboard(buttons).resize(),
 	);
 
-	layer++;
+	await ctx.withUser((u) => u.feedBackStep++);
 });
 
 SceneAboutFeedback.hears('Назад', async (ctx) => {
