@@ -1,6 +1,8 @@
 import { Markup, Scenes } from 'telegraf';
 import { InformerContext } from '@view/context';
 import { User } from '@models/all';
+import * as fs from 'fs';
+import { cwd } from 'process';
 
 export const SceneMessageConstructor =
 	new Scenes.BaseScene<InformerContext>('messageConstructor');
@@ -15,6 +17,13 @@ SceneMessageConstructor.hears('Отмена', (ctx) => {
 	ctx.navigator.goto('Admin');
 });
 SceneMessageConstructor.on('text', async (ctx) => {
+	await ctx.replyWithDocument({
+		source: fs.createReadStream(
+			cwd() + '/src/media/images/samin.gif',
+		),
+		filename: 'sure.gif',
+	});
+
 	await ctx.reply('вот так вот?');
 
 	await ctx.reply(
@@ -22,10 +31,6 @@ SceneMessageConstructor.on('text', async (ctx) => {
 		Markup.inlineKeyboard([
 			Markup.button.callback('Разослать💀', 'да'),
 		]),
-	);
-
-	await ctx.reply(
-		'https://media.tenor.com/WB9lrgDX2m8AAAAd/samin.gif',
 	);
 });
 

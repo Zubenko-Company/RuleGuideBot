@@ -25,23 +25,28 @@ export const createStage = () => {
 		},
 	);
 
-	for (const [sceneName, scene] of Object.entries(SCENES)) {
-		stage.use(
-			Composer.compose([
-				Composer.catch(sceneErrorHandler),
-				Composer.optional(async (ctx) => {
-					const userCurrentMenu = await ctx.withUser(
-						(u) => u.currentMenu,
-					);
+	stage.use(
+		Composer.compose([
+			Composer.catch(sceneErrorHandler),
+			Composer.dispatch(async (ctx) => {
+				const userCurrentMenu = await ctx.withUser(
+					(u) => u.currentMenu,
+				);
 
-					if (userCurrentMenu !== sceneName) {
-						return false;
-					}
+				return userCurrentMenu;
+			}, SCENES),
+			async (ctx, next) => {
+				const userCurrentMenu = await ctx.withUser(
+					(u) => u.currentMenu,
+				);
 
-					return true;
-				}, scene.middleware()),
-			]),
-		);
-	}
+				console.log('redirect');
+
+				await ctx.navigator.goto(userCurrentMenu);
+				return next();
+			},
+		]),
+	);
+
 	return stage;
 };
