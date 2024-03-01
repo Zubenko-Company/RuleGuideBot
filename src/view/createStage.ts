@@ -33,16 +33,21 @@ export const createStage = () => {
 					(u) => u.currentMenu,
 				);
 
+				if (!SCENES[userCurrentMenu]) {
+					await ctx.navigator.goto('MainMenu');
+				}
+
 				return userCurrentMenu;
 			}, SCENES),
 			async (ctx, next) => {
-				const userCurrentMenu = await ctx.withUser(
-					(u) => u.currentMenu,
-				);
+				// const userCurrentMenu = await ctx.withUser(
+				// 	(u) => u.currentMenu,
+				// );
 
-				console.log('redirect');
+				// console.log('redirect');
 
-				await ctx.navigator.goto(userCurrentMenu);
+				// await ctx.navigator.goto(userCurrentMenu);
+				
 				return next();
 			},
 		]),

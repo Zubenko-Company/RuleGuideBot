@@ -1,15 +1,16 @@
 import { Markup, Scenes } from 'telegraf';
 import { InformerContext } from '@view/context';
 import * as fs from 'fs';
+import { createInformerApi } from 'informer-client';
 
 export const SceneAgreement =
 	new Scenes.BaseScene<InformerContext>('agreement');
 
 SceneAgreement.enter(async (ctx) => {
 	await ctx.reply(
-		'Добро пожаловать!' +
-			'Этот чат-бот — ваш помощник в повседневной работе с сотрудниками. ' +
-			'Перед его использованием посмотрите это короткое видео:',
+		'Добро пожаловать! ☺️\n\n'+
+		'Этот чат-бот — ваш помощник в повседневной работе с сотрудниками. Он подскажет, какой вариант обратной связи и в каких ситуациях эффективнее применять.\n\n'+
+		'Удачи! ✨',
 	);
 
 	await ctx.replyWithVideo({
@@ -26,6 +27,13 @@ SceneAgreement.enter(async (ctx) => {
 
 SceneAgreement.hears('Я согласен!', async (ctx) => {
 	await ctx.withUser((u) => (u.isAgreed = true));
+
+	// const { sendMessage } = createInformerApi({url: process.env.INFORMER_URL!, token: process.env.INFORMER_KEY!});
+
+	// await sendMessage({
+	// 	topic: 'Новенькие',
+	// 	message: 'Добавлен новый пользователь @' + ctx.from.username
+	// })
 
 	await ctx.reply(
 		'Спасибо! Теперь вы будете получать уведомления о новостях.',
