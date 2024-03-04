@@ -16,7 +16,7 @@ export const sendTopic = async (message: {
 		});
 
 		if (req !== 200) {
-			console.log('Ошибка в запросе');
+			console.log(`Ошибка в запросе (${req})`);
 		}
 	} catch (e) {
 		console.log(e);
