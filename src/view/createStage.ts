@@ -47,7 +47,7 @@ export const createStage = () => {
 				// console.log('redirect');
 
 				// await ctx.navigator.goto(userCurrentMenu);
-				
+
 				return next();
 			},
 		]),

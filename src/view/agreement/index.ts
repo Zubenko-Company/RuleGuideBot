@@ -13,11 +13,11 @@ SceneAgreement.enter(async (ctx) => {
 			'Удачи! ✨',
 	);
 
-	await ctx.replyWithVideo({
-		source: fs.createReadStream(
-			__dirname + '/../../media/video/intro.mp4',
-		),
-	});
+	// await ctx.replyWithVideo({
+	// 	source: fs.createReadStream(
+	// 		__dirname + '/../../media/video/intro.mp4',
+	// 	),
+	// });
 
 	await ctx.reply(
 		'Разрешить отправку уведомлений о новостях?',
