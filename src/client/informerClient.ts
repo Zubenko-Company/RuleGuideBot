@@ -1,14 +1,17 @@
 import { createInformerApi } from 'informer-client';
 
 const { sendMessage } = createInformerApi({
-	url: 'http://stercus.ru:3000/topic/message',
-	token: '80b80b83-625f-46f7-8295-5bb90322d453',
+	url: process.env.INFORMER_URL!,
+	token: process.env.INFORMER_TOKEN!,
 });
 
 export const sendTopic = async (message: {
 	topic: string;
 	content: string;
 }) => {
+	if (process.env.IS_PROD === 'false') {
+		return;
+	}
 	try {
 		const req = await sendMessage({
 			topic: message.topic,
