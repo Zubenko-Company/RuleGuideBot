@@ -14,10 +14,10 @@ export class Config {
 	}
 
 	static get ADMINS(): string[] {
-		if (!process.env.ADMIN) {
+		if (!process.env.ADMINS) {
 			throw new Error(getErrorEnvMessage('ADMINS'));
 		}
 
-		return process.env.ADMIN.split(',');
+		return process.env.ADMINS.split(',');
 	}
 }
