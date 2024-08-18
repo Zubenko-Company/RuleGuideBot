@@ -26,32 +26,29 @@ SceneAdmin.hears('Показать статистику', async (ctx) => {
 	const lastMonthDate = new Date();
 	lastMonthDate.setMonth(lastMonthDate.getMonth() - 1);
 
-	const usersLastMonth = (
-		await User.findAndCount({
-			where: {
-				created_at: MoreThanOrEqual(lastMonthDate),
-				isBlocked: false,
-			},
-		})
-	)[1];
-	const usersCount = (
-		await User.findAndCount({
-			where: { isAgreed: true },
-		})
-	)[1];
-	const bannedUsers = (
-		await User.findAndCount({
-			where: {
-				isBlocked: true,
-			},
-		})
-	)[1];
+	const [, usersLastMonth] = await User.findAndCount({
+		where: {
+			created_at: MoreThanOrEqual(lastMonthDate),
+			isBlocked: false,
+		},
+	});
+	const [, TotalCount] = await User.findAndCount({});
+	const [, AgreedCount] = await User.findAndCount({
+		where: { isAgreed: true },
+	});
+	const [, bannedUsers] = await User.findAndCount({
+		where: {
+			isBlocked: true,
+		},
+	});
 
 	await ctx.reply(
-		'📈 Общее кол-во пользователей: ' +
-			usersCount +
-			'\n📈 Новых пользователей за последний месяц: ' +
-			usersLastMonth +
+		'👻 Всего: ' +
+			TotalCount +
+			'\n📈 Кол-во пользователей согласилось с правилами: ' +
+			AgreedCount +
+			// '\n📈 Новых пользователей за последний месяц: ' +
+			// usersLastMonth +
 			'\n💀 Пользователей отписалось: ' +
 			bannedUsers,
 	);
