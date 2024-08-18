@@ -32,7 +32,7 @@ SceneAdmin.hears('Показать статистику', async (ctx) => {
 			isBlocked: false,
 		},
 	});
-	const [, TotalCount] = await User.findAndCount({});
+	const TotalCount = await User.count();
 	const [, AgreedCount] = await User.findAndCount({
 		where: { isAgreed: true },
 	});
