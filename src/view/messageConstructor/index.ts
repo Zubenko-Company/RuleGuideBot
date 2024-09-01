@@ -24,7 +24,10 @@ SceneMessageConstructor.on('text', async (ctx) => {
 		filename: 'sure.gif',
 	});
 
-	await ctx.reply('вот так вот?');
+	await ctx.reply('итоговый вариант:');
+	await ctx.reply(ctx.message.text, {
+		parse_mode: 'MarkdownV2',
+	});
 
 	await ctx.reply(
 		ctx.message.text,
@@ -51,6 +54,7 @@ SceneMessageConstructor.action('да', async (ctx) => {
 			await ctx.telegram.sendMessage(
 				user.chatId,
 				(ctx.callbackQuery.message as any).text,
+				{ parse_mode: 'MarkdownV2' },
 			);
 		} catch {
 			console.log('user ' + user.userName + ' blocked bot');
