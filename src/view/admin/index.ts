@@ -2,18 +2,19 @@ import { Markup, Scenes } from 'telegraf';
 import { InformerContext } from '@view/context';
 import { User } from '@models/all';
 import { LessThan, MoreThan, MoreThanOrEqual } from 'typeorm';
+import { Message } from '@models/entity/Message';
+import * as R from 'remeda';
 
 export const SceneAdmin = new Scenes.BaseScene<InformerContext>(
 	'admin',
 );
-
-//TODO check
 
 SceneAdmin.enter(async (ctx) => {
 	await ctx.reply(
 		'Придумайте',
 		Markup.keyboard([
 			['Создать рассылку'],
+			['Удалить последнюю рассылку'],
 			['Показать статистику'],
 			['Назад'],
 		]).resize(),
@@ -21,6 +22,21 @@ SceneAdmin.enter(async (ctx) => {
 });
 SceneAdmin.hears('Создать рассылку', (ctx) => {
 	ctx.navigator.goto('MessageConstructor');
+});
+SceneAdmin.hears('Удалить последнюю рассылку', async (ctx) => {
+	const msg = (await Message.findOne({
+		order: {
+			sendetAt: 'DESC',
+		},
+	})) as Message;
+
+	try {
+		msg.messageIds.forEach(async (ids) => {
+			await ctx.telegram.deleteMessage(ids.chatId, ids.msgId);
+		});
+	} catch (e) {
+		console.log(e);
+	}
 });
 SceneAdmin.hears('Показать статистику', async (ctx) => {
 	const lastMonthDate = new Date();

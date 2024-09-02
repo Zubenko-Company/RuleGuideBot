@@ -3,6 +3,7 @@ import { InformerContext } from '@view/context';
 import { User } from '@models/all';
 import * as fs from 'fs';
 import { cwd } from 'process';
+import { Message } from '@models/entity/Message';
 
 export const SceneMessageConstructor =
 	new Scenes.BaseScene<InformerContext>('messageConstructor');
@@ -26,7 +27,7 @@ SceneMessageConstructor.on('text', async (ctx) => {
 
 	await ctx.reply('итоговый вариант:');
 	await ctx.reply(ctx.message.text, {
-		parse_mode: 'MarkdownV2',
+		parse_mode: 'Markdown',
 	});
 
 	await ctx.reply(
@@ -49,19 +50,34 @@ SceneMessageConstructor.action('да', async (ctx) => {
 		where: { isAgreed: true, isBlocked: false },
 	});
 
+	const sendedMessage = new Message();
+	sendedMessage.content = (
+		ctx.callbackQuery.message as any
+	).text;
+
+	const msgIds: { chatId: number; msgId: number }[] = [];
+
 	for (const user of users) {
 		try {
-			await ctx.telegram.sendMessage(
+			const sended = await ctx.telegram.sendMessage(
 				user.chatId,
 				(ctx.callbackQuery.message as any).text,
-				{ parse_mode: 'MarkdownV2' },
+				{ parse_mode: 'Markdown' },
 			);
-		} catch {
+			msgIds.push({
+				chatId: sended.chat.id,
+				msgId: sended.message_id,
+			});
+		} catch (e) {
 			console.log('user ' + user.userName + ' blocked bot');
 			user.isBlocked = true;
 			await user.save();
 		}
 	}
+
+	sendedMessage.messageIds = msgIds;
+	sendedMessage.sendetAt = new Date();
+	sendedMessage.save();
 
 	await ctx.navigator.goto('Admin');
 });
