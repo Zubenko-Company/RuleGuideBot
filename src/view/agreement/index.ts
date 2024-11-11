@@ -2,6 +2,7 @@ import { Markup, Scenes } from 'telegraf';
 import { InformerContext } from '@view/context';
 import * as fs from 'fs';
 import { sendTopic } from 'src/client';
+import { geetingMessage } from '@models/agreement/data';
 
 export const SceneAgreement =
 	new Scenes.BaseScene<InformerContext>('agreement');
@@ -38,5 +39,8 @@ SceneAgreement.hears('Я согласен!', async (ctx) => {
 	await ctx.reply(
 		'Спасибо! Теперь вы будете получать уведомления о новостях.',
 	);
+
+	await ctx.reply(geetingMessage, { parse_mode: 'Markdown' });
+
 	ctx.navigator.goto('MainMenu');
 });
