@@ -4,16 +4,15 @@ import {
 	Entity,
 	Column,
 	BaseEntity,
-	ObjectIdColumn,
-	ObjectId,
+	PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
 export class User extends BaseEntity {
-	@ObjectIdColumn()
-	id: ObjectId;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-	@Column({ unique: true })
+	@Column({ unique: true, type: 'bigint' })
 	chatId: number;
 
 	@Column()

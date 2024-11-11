@@ -4,11 +4,5 @@ services:
     build:
       dockerfile: Dockerfile
     pull_policy: build
-  mongo:
-    image: mongodb/mongodb-community-server:latest
-    container_name: rule-guide-bot-mongo
-    user: root
-    volumes:
-      - /data:/data/db:Z
-    # ports:
-    #   - '27017:27017'
+
+      

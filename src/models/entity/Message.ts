@@ -2,20 +2,19 @@ import {
 	Entity,
 	Column,
 	BaseEntity,
-	ObjectIdColumn,
-	ObjectId,
+	PrimaryGeneratedColumn,
 } from 'typeorm';
 
 @Entity()
 export class Message extends BaseEntity {
-	@ObjectIdColumn()
-	id: ObjectId;
+	@PrimaryGeneratedColumn()
+	id: number;
 
 	@Column()
 	content: string;
 
 	@Column()
-	messageIds: { chatId: number; msgId: number }[];
+	messageIds: string;
 
 	@Column()
 	sendetAt: Date;

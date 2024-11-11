@@ -75,7 +75,7 @@ SceneMessageConstructor.action('да', async (ctx) => {
 		}
 	}
 
-	sendedMessage.messageIds = msgIds;
+	sendedMessage.messageIds = JSON.stringify(msgIds);
 	sendedMessage.sendetAt = new Date();
 	sendedMessage.save();
 
