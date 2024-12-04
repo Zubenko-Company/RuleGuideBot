@@ -40,7 +40,7 @@ SceneAgreement.hears('Я согласен!', async (ctx) => {
 		'Спасибо! Теперь вы будете получать уведомления о новостях.',
 	);
 
-	await ctx.reply(geetingMessage, { parse_mode: 'Markdown' });
+	// await ctx.reply(geetingMessage, { parse_mode: 'Markdown' });
 
 	ctx.navigator.goto('MainMenu');
 });
