@@ -34,7 +34,6 @@ SceneMainMenu.hears('Правила донесения Обратной связ
 	ctx.navigator.goto('FeedbackRules'),
 );
 
-SceneMainMenu.hears(
-	'Выберите вашу ситуацию',
-	(ctx) => ctx.navigator.goto('Search'),
+SceneMainMenu.hears('Выберите вашу ситуацию', (ctx) =>
+	ctx.navigator.goto('Search'),
 );
